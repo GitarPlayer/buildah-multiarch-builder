@@ -9,6 +9,7 @@ WORKDIR /home/build/
 
 
 RUN dnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y qemu-user-static jq && \
+    dnf reinstall shadow-utils && \
     usermod -u 53967 build && \
     groupmod -g 53967 build && \
     find / -uid 1000 -exec chown -h 53967 {} \; 2>/dev/null | true &&\
