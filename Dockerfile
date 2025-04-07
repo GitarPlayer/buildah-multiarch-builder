@@ -12,7 +12,7 @@ RUN dnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y qemu-use
     usermod -u 53967 build && \
     groupmod -g 53967 build && \
     find / -uid 1000 -exec chown -h 53967 {} \; &&\
-    find / -gid 1000 -exec chgrp -h 53967 {} \;
+    find / -gid 1000 -exec chgrp -h 53967 {} \; &&\
     chmod -R 770 /home/build/ && \
     chgrp -R 0 /home/build/ && \    
     sed -i 's/driver = "overlay"/driver = "vfs"/' /etc/containers/storage.conf && \  
