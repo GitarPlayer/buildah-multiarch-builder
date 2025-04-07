@@ -9,7 +9,7 @@ WORKDIR /home/build/
 
 
 RUN dnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y qemu-user-static jq && \
-    dnf reinstall shadow-utils && \
+    dnf reinstall shadow-utils -y && \
     usermod -u 53967 build && \
     groupmod -g 53967 build && \
     find / -uid 1000 -exec chown -h 53967 {} \; 2>/dev/null | true &&\
@@ -21,7 +21,10 @@ RUN dnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y qemu-use
     (echo '[storage]';echo 'driver = "overlay"') > /home/build/.config/containers/storage.conf && \  
     sed -i 's/# log_level = "7"/log_level = "4"/' /etc/containers/storage.conf  && \  
     echo "export BUILDAH_ISOLATION=chroot" >> /etc/bashrc  && \  
-    echo "export BUILDAH_ISOLATION=chroot" >> /home/build/.bashrc  
+    echo "export BUILDAH_ISOLATION=chroot" >> /home/build/.bashrc && \  
+    echo build:2000:50000 > /etc/subuid && \  
+    echo build:2000:50000 > /etc/subgid 
+
 
 
 
