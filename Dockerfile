@@ -18,7 +18,10 @@ RUN dnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y qemu-use
     sed -i 's/driver = "overlay"/driver = "vfs"/' /etc/containers/storage.conf && \  
      mkdir -p /home/build/.config/containers && \  
     (echo '[storage]';echo 'driver = "overlay"') > /home/build/.config/containers/storage.conf && \  
-    sed -i 's/# log_level = "7"/log_level = "4"/' /etc/containers/storage.conf 
+    sed -i 's/# log_level = "7"/log_level = "4"/' /etc/containers/storage.conf  && \  
+    echo "export BUILDAH_ISOLATION=chroot" >> /etc/bashrc  && \  
+    echo "export BUILDAH_ISOLATION=chroot" >> /home/build/.bashrc  
+
 
 
 # do the buildah stuff here
